@@ -13,7 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('followers', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->integer('follower_id')->unique();
+            $table->integer('following_id')->unique();
+        });
     }
 
     /**

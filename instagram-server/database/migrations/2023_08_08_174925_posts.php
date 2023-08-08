@@ -13,7 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
+            $table->string('image_url');
+            $table->integer('likes_count');
+        });
     }
 
     /**
