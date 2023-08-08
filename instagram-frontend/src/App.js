@@ -1,4 +1,5 @@
 import './App.css';
+import './utilities.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Authentication from './pages/Authentication';
 import Landing from './pages/Landing';
