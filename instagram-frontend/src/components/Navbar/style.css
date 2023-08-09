@@ -1,13 +1,14 @@
 .landingcontainer {
+  position: fixed;
   display: flex;
-  justify-content: start;
-  align-items: start;
   flex-direction: column;
   border: 2px solid black;
   width: 15%;
-  height: 1000px;
-
+  min-height: 971px;
+  padding: 10px;
+  top: -0%;
 }
+
 
 .imagecont {
   display: flex;
@@ -17,15 +18,24 @@
   margin: 50px 80px;
 }
 
-.icon {
+.icon-wrap {
   display: flex;
   justify-content: start;
   align-items: start;
   flex-direction: row;
-  margin: 40px 80px;
-  width: 30px;
+  margin: 50px 80px;
+  width: 45px;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+
 
 }
+
+
+.icon-wrap:hover {
+  transform: scale(1.2);
+}
+
 
 .homecont {
   display: flex;
@@ -33,11 +43,6 @@
 
 }
 
-.img {
-  width: 60px;
-  height: auto;
-  margin-right: 15px;
-}
 
 .text {
   font-size: 18px;
