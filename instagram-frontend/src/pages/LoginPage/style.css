@@ -1,0 +1,53 @@
+.login {
+  padding-top: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20%;
+
+  height: 30rem;
+  border: 1px solid black;
+}
+
+
+.login>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 400px;
+  width: 100%;
+
+  flex-direction: column;
+
+}
+
+.inputdivs {
+
+  margin-left: -20%;
+  margin-top: 10%;
+}
+
+.loginbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 150px;
+
+}
+
+.reg {
+  text-decoration: none;
+}

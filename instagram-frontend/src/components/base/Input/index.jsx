@@ -1,10 +1,15 @@
 import React from 'react'
+import './style.css';
 
-const Input = (onchange) => {
+const Input = (props) => {
+  const { type, label, placeholder, onChange } = props;
+
+
   return (
-    <div className='flex column' >
-      <label>Label</label>
-      <input type='text' onchange={(e) => onchange(e.target.value)} />
+    <div className='flex row inputcontain' >
+
+      <label>{label ? label : ""}</label>
+      <input type={type} placeholder={placeholder} onChange={onChange} />
 
     </div>
   )
