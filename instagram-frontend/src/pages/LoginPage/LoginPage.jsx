@@ -3,11 +3,14 @@ import Input from '../../components/base/Input'
 import './style.css';
 import Button from '../../components/base/Button';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import { useState } from 'react';
 
 const LoginPage = (onchange) => {
   const [email, setEmail] = useState('');
+  const navigate = useNavigate();
+
   const [password, setPassword] = useState('');
   const handleLogin = () => {
     const data = {
@@ -15,10 +18,13 @@ const LoginPage = (onchange) => {
       password: password,
     };
 
-    axios.post(`http://127.0.0.1:8000/api/login`, data)
-      .then(response => console.log(response.data))
-      .catch(error => console.log('error', error));
-
+    axios.post('http://127.0.0.1:8000/api/login', data)
+      .then(response => {
+        navigate('/landing');
+      })
+      .catch(error => {
+        console.log('error', error);
+      });
   };
   return (
     <div className='flex center login'>

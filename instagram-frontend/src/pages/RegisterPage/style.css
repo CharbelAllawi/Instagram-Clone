@@ -1,4 +1,4 @@
-.Register {
+.register {
   padding-top: 20%;
   display: flex;
   justify-content: center;
@@ -22,7 +22,7 @@
 }
 
 
-.Register>div {
+.register>div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,7 +39,7 @@
   margin-top: 10%;
 }
 
-.Registerbtn {
+.registerbtn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,6 +48,6 @@
 
 }
 
-.log {
+.reg {
   text-decoration: none;
 }
