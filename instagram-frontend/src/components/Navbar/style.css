@@ -1,0 +1,53 @@
+.landingcontainer {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+  border: 2px solid black;
+  width: 15%;
+  height: 1000px;
+
+}
+
+.imagecont {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: row;
+  margin: 50px 80px;
+}
+
+.icon {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: row;
+  margin: 40px 80px;
+  width: 30px;
+
+}
+
+.homecont {
+  display: flex;
+  align-items: start;
+
+}
+
+.img {
+  width: 60px;
+  height: auto;
+  margin-right: 15px;
+}
+
+.text {
+  font-size: 18px;
+  margin-top: 15px;
+  margin-left: 38%;
+  font-weight: bold;
+}
+
+
+
+.instaimg {
+  width: 140px;
+}
