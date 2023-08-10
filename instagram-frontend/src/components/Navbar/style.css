@@ -24,12 +24,13 @@
   align-items: start;
   flex-direction: row;
   margin: 50px 80px;
-  width: 45px;
+  width: 150px;
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
 
 
 }
+
 
 
 .icon-wrap:hover {

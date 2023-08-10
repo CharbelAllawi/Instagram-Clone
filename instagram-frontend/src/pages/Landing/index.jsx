@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 const Landing = () => {
-  
+
   const authtoken = localStorage.getItem('authtoken');
   const [posts, setPosts] = useState([]);
 

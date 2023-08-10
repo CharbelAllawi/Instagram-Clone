@@ -17,7 +17,6 @@ const LoginPage = () => {
       email: email,
       password: password,
     };
-
     axios.post('http://127.0.0.1:8000/api/login', data)
       .then(response => {
         const authtoken = response.data.authorisation.token;

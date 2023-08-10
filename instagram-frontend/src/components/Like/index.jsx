@@ -52,6 +52,8 @@ const Like = ({ likes_count, post_id }) => {
       console.log('Error liking post:', error);
     }
   };
+
+
   const checklike = async () => {
     try {
       const response = await axios.post(

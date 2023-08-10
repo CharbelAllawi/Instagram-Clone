@@ -40,21 +40,29 @@ class UserController extends Controller
             'users' => $users,
         ]);
     }
-
     public function post(Request $request)
     {
         $user = JWTAuth::user();
-        $post = new Post([
-            'user_id' => $user->id,
+        $destination_path = "public/images/posts/";
+        if ($request->hasFile('image_url')) {
+            $image = $request->file('image_url');
+            $image_name = $image->getClientOriginalName();
+            $path = $request->file('image_url')->storeAs($destination_path, $image_name);
 
-            'image_url' => $request->image_url,
-            'likes_count' => 0
-        ]);
-        $post->save();
+            $post = new Post([
+                'user_id' => $user->id,
+                'image_url' => $image_name, // Store the image path in the database
+                'likes_count' => 0
+            ]);
+            $post->save();
 
-        return response()->json(['message' => 'Post created'], 201);
+            // Generate a full URL for the image
+
+            return response()->json(['message' => 'Post created', 'image_url' => $image_name], 201);
+        }
+
+        return response()->json(['message' => 'Image not found'], 400);
     }
-
 
 
     function    getUserPosts()
