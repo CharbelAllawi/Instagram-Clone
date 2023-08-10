@@ -89,4 +89,35 @@ class UserController extends Controller
             return response()->json(['message' => 'Unauthorized to view posts'], 403);
         }
     }
+
+
+    public function addLikeToPost(Request $request)
+    {
+        $user = JWTAuth::user();
+
+        if ($user) {
+            $postId = $request->input('post_id');
+            $post = Post::find($postId);
+
+            if ($post) {
+                $existingLike = $post->likes()->where('user_id', $user->id)->first();
+
+                if (!$existingLike) {
+                    $like = new Like(['user_id' => $user->id]);
+                    $post->likes()->save($like);
+                    $post->increment('likes_count');
+                    return response()->json(['message' => 'Post liked successfully']);
+                } else {
+
+                    $existingLike->delete();
+                    $post->decrement('likes_count');
+                    return response()->json(['message' => 'Post like removed'], 200);
+                }
+            } else {
+                return response()->json(['message' => 'Post not found'], 404);
+            }
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    }
 }
