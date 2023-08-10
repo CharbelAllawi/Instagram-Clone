@@ -91,7 +91,7 @@ class UserController extends Controller
     }
 
 
-    public function addLikeToPost(Request $request)
+    public function like(Request $request)
     {
         $user = JWTAuth::user();
 
@@ -107,11 +107,53 @@ class UserController extends Controller
                     $post->likes()->save($like);
                     $post->increment('likes_count');
                     return response()->json(['message' => 'Post liked successfully']);
-                } else {
+                }
+            } else {
+                return response()->json(['message' => 'Post not found'], 404);
+            }
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    }
 
+    public function checklike(Request $request)
+    {
+        $user = JWTAuth::user();
+
+        if ($user) {
+            $postId = $request->input('post_id');
+            $post = Post::find($postId);
+
+            if ($post) {
+                $existingLike = $post->likes()->where('user_id', $user->id)->first();
+
+                if ($existingLike) {
+
+                    return response()->json(['message' => 'already liked']);
+                }
+            } else {
+                return response()->json(['message' => 'Post not found'], 404);
+            }
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    }
+    public function unlike(Request $request)
+    {
+        $user = JWTAuth::user();
+
+        if ($user) {
+            $postId = $request->input('post_id');
+            $post = Post::find($postId);
+
+            if ($post) {
+                $existingLike = $post->likes()->where('user_id', $user->id)->first();
+                if ($existingLike) {
                     $existingLike->delete();
                     $post->decrement('likes_count');
-                    return response()->json(['message' => 'Post like removed'], 200);
+                    return response()->json(['message' => 'Post unliked successfully']);
+                } else {
+                    return response()->json(['message' => 'You have not liked this post'], 404);
                 }
             } else {
                 return response()->json(['message' => 'Post not found'], 404);

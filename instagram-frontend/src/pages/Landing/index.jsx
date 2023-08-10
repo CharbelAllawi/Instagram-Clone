@@ -5,12 +5,13 @@ import axios from 'axios';
 import { useState } from 'react';
 
 const Landing = () => {
-  const authtoken = localStorage.getItem('authtoken')
-  const [posts, setPosts] = useState(['']);
+  
+  const authtoken = localStorage.getItem('authtoken');
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     getPosts();
-  }, [authtoken]);
+  }, []);
 
   const getPosts = async () => {
     try {
@@ -19,27 +20,26 @@ const Landing = () => {
         {
           headers: {
             Authorization: `Bearer ${authtoken}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
         }
       );
-      console.log('User Posts:', response.data);
+      setPosts(response.data.posts);
     } catch (error) {
       console.log('Error fetching posts:', error);
     }
   };
 
-
   return (
     <div>
       <Navbar />
-      {posts.map(post => (
-        <Card
-          image_url={post.image_url}
-          likes_count={post.likes_count}
-        />
-      ))}
+      <ul className="cards">
+        {posts.map((post) => (
+          <Card post_id={post.id} key={post.id} image_url={post.image_url} likes_count={post.likes_count} />
+        ))}
+      </ul>
     </div>
   );
-}
+};
+
 export default Landing;
