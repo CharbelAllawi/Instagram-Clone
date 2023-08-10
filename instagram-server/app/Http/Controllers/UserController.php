@@ -72,4 +72,21 @@ class UserController extends Controller
             'posts' => $posts,
         ]);
     }
+    public function getUserPostsByID(Request $request)
+    {
+        $requestingUser = JWTAuth::user();
+        $userId = $request->user_id;
+
+        if ($requestingUser->following()->where('following_id', $userId)->exists()) {
+            $posts = Post::where('user_id', $userId)->get();
+
+            return response()->json([
+                'id' => $userId,
+                'status' => 'success',
+                'posts' => $posts,
+            ]);
+        } else {
+            return response()->json(['message' => 'Unauthorized to view posts'], 403);
+        }
+    }
 }
