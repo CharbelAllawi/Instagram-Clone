@@ -11,12 +11,10 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::post('post', [UserController::class, 'post']);
     Route::get('getposts', [UserController::class, 'getUserPosts']);
     Route::get('getpostbyid', [UserController::class, 'getUserPostsByID']);
-    Route::get('getfollowingposts', [UserController::class, 'getUserFollowingPosts']);
     Route::post('addlike', [UserController::class, 'addLikeToPost']);
     Route::get('searchbyname', [UserController::class, 'searchByName']);
 });
 
-// Define individual routes for AuthController
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 Route::post('logout', [AuthController::class, 'logout']);
