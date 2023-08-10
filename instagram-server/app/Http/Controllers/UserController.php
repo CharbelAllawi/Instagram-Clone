@@ -54,4 +54,22 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Post created'], 201);
     }
+
+
+
+    function getUserPosts()
+    {
+        $user = JWTAuth::user();
+
+        $userid = $user->pluck('id');
+
+        $posts = Post::whereIn('user_id', $userid)->get();
+
+
+
+        return response()->json([
+            'status' => 'success',
+            'posts' => $posts,
+        ]);
+    }
 }
