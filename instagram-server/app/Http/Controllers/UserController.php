@@ -40,4 +40,18 @@ class UserController extends Controller
             'users' => $users,
         ]);
     }
+
+    public function post(Request $request)
+    {
+        $user = JWTAuth::user();
+        $post = new Post([
+            'user_id' => $user->id,
+
+            'image_url' => $request->image_url,
+            'likes_count' => 0
+        ]);
+        $post->save();
+
+        return response()->json(['message' => 'Post created'], 201);
+    }
 }
