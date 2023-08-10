@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'; // Import the icons
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
 import './style.css';
 
-const Like = ({ imageUrl }) => { // Make sure to pass imageUrl as a prop
+const Like = ({ imageUrl }) => {
   const [like, setLike] = useState(false);
   const [count, setCount] = useState(0);
 
-  // Handle likes
   const handleLikes = () => {
     if (!like) {
       setLike(true);
@@ -26,7 +25,7 @@ const Like = ({ imageUrl }) => { // Make sure to pass imageUrl as a prop
           size={30}
           className="text-danger"
           onClick={handleLikes}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", color: "red" }}
         />
       ) : (
         <AiOutlineHeart

@@ -57,13 +57,13 @@ class UserController extends Controller
 
 
 
-    function getUserPosts()
+    function    getUserPosts()
     {
         $user = JWTAuth::user();
 
-        $userid = $user->pluck('id');
 
-        $posts = Post::whereIn('user_id', $userid)->get();
+
+        $posts = Post::where('user_id', $user->id)->get();
 
 
 

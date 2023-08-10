@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useState } from 'react';
 
-const LoginPage = (onchange) => {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
@@ -20,6 +20,8 @@ const LoginPage = (onchange) => {
 
     axios.post('http://127.0.0.1:8000/api/login', data)
       .then(response => {
+        const authtoken = response.data.authorisation.token;
+        localStorage.setItem('authtoken', authtoken);
         navigate('/landing');
       })
       .catch(error => {
