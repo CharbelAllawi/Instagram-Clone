@@ -1,15 +1,23 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 
 
-Route::controller(AuthController::class)->group(function () {
-    Route::post('login', 'login');
-    Route::post('register', 'register');
-    Route::post('logout', 'logout');
-    Route::post('refresh', 'refresh');
+Route::middleware(['jwt.auth'])->group(function () {
+    Route::post('followunfollow', [UserController::class, 'followorunfollow']);
+    Route::post('post', [UserController::class, 'post']);
+    Route::get('getposts', [UserController::class, 'getUserPosts']);
+    Route::get('getpostbyid', [UserController::class, 'getUserPostsByID']);
+    Route::get('getfollowingposts', [UserController::class, 'getUserFollowingPosts']);
+    Route::post('addlike', [UserController::class, 'addLikeToPost']);
+    Route::get('searchbyname', [UserController::class, 'searchByName']);
 });
+
+// Define individual routes for AuthController
+Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
+Route::post('logout', [AuthController::class, 'logout']);
+Route::post('refresh', [AuthController::class, 'refresh']);
