@@ -11,11 +11,12 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::post('post', [UserController::class, 'post']);
     Route::get('getposts', [UserController::class, 'getUserPosts']);
 
-    Route::get('getpostbyid', [UserController::class, 'getUserPostsByID']);
+    Route::get('getFollowingPosts', [UserController::class, 'getFollowingPosts']);
     Route::post('like', [UserController::class, 'like']);
     Route::post('unlike', [UserController::class, 'unlike']);
     Route::post('checklike', [UserController::class, 'checklike']);
-
+    Route::get('getallusers', [UserController::class, 'getAllUsers']);
+    Route::get('checkfollowstatus/{userId}', [UserController::class, 'checkfollowstatus']);
 
     Route::get('searchbyname', [UserController::class, 'searchByName']);
 });

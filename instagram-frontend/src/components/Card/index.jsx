@@ -8,7 +8,7 @@ const Card = ({ image_url, likes_count, post_id }) => {
     <li className="cards__item">
       <img src=''></img>
       <div className="card">
-        <div className="card__image card__image--fence" style={{ backgroundImage: `url(http://localhost:8000/storage/images/posts/${image_url})` }}></div>
+        <img src={`http://localhost:8000/storage/images/posts/${image_url}`} alt="Image" />
         <div className="card__content">
           <div className="card__title">
             <Like likes_count={likes_count} post_id={post_id} />

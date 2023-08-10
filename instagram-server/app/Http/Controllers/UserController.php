@@ -10,6 +10,15 @@ use App\Models\Post;
 
 class UserController extends Controller
 {
+    public function getAllUsers()
+    {
+        $users = User::all();
+
+        return response()->json([
+            'status' => 'success',
+            'users' => $users,
+        ]);
+    }
     public function followorunfollow(Request $request)
     {
         $user = JWTAuth::user();
@@ -22,12 +31,27 @@ class UserController extends Controller
 
         if ($user->following()->where('following_id', $followerId)->exists()) {
             $user->following()->detach($followerId);
-            return response()->json(['message' => 'User unfollowed successfully']);
+            return response()->json(['message' => 'User unfollowed successfully', 'is_following' => false]);
         } else {
             $user->following()->attach($followerId);
-            return response()->json(['message' => 'User followed successfully']);
+            return response()->json(['message' => 'User followed successfully', 'is_following' => true]);
         }
     }
+    public function checkfollowstatus($userId)
+    {
+        $user = JWTAuth::user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        if ($user->following()->where('following_id', $userId)->exists()) {
+            return response()->json(['isFollowing' => true]);
+        } else {
+            return response()->json(['isFollowing' => false]);
+        }
+    }
+
 
     public function searchByName(Request $request)
     {
@@ -51,13 +75,10 @@ class UserController extends Controller
 
             $post = new Post([
                 'user_id' => $user->id,
-                'image_url' => $image_name, // Store the image path in the database
+                'image_url' => $image_name,
                 'likes_count' => 0
             ]);
             $post->save();
-
-            // Generate a full URL for the image
-
             return response()->json(['message' => 'Post created', 'image_url' => $image_name], 201);
         }
 
@@ -80,24 +101,25 @@ class UserController extends Controller
             'posts' => $posts,
         ]);
     }
-    public function getUserPostsByID(Request $request)
+    public function getFollowingPosts()
     {
-        $requestingUser = JWTAuth::user();
-        $userId = $request->user_id;
+        $user = JWTAuth::user();
 
-        if ($requestingUser->following()->where('following_id', $userId)->exists()) {
-            $posts = Post::where('user_id', $userId)->get();
-
-            return response()->json([
-                'id' => $userId,
-                'status' => 'success',
-                'posts' => $posts,
-            ]);
-        } else {
-            return response()->json(['message' => 'Unauthorized to view posts'], 403);
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
-    }
 
+        // Get the IDs of the users the authenticated user is following
+        $followingIds = $user->following->pluck('id');
+
+        // Retrieve all posts of the users the authenticated user is following
+        $posts = Post::whereIn('user_id', $followingIds)->get();
+
+        return response()->json([
+            'status' => 'success',
+            'posts' => $posts,
+        ]);
+    }
 
     public function like(Request $request)
     {

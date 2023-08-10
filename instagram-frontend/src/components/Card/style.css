@@ -16,6 +16,7 @@
   padding: 1rem;
   margin-left: 20%;
 
+
   @media(min-width: 40rem) {
     width: 15%;
   }
@@ -52,12 +53,10 @@
   background-size: cover;
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
-  filter: contrast(70%);
 
   margin-top: -30%;
   overflow: hidden;
   position: relative;
-  transition: filter 0.5s cubic-bezier(.43, .41, .22, .91);
   margin-top: 0px;
 
 }
