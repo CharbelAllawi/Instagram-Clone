@@ -107,6 +107,11 @@ const Modal = ({ isOpen, onClose, children }) => {
               onChange={handleSearchChange}
             />
 
+
+
+
+
+
             <span className="close" onClick={onClose}>
               &times;
             </span>

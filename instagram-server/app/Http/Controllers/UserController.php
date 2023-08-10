@@ -109,10 +109,8 @@ class UserController extends Controller
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        // Get the IDs of the users the authenticated user is following
         $followingIds = $user->following->pluck('id');
 
-        // Retrieve all posts of the users the authenticated user is following
         $posts = Post::whereIn('user_id', $followingIds)->get();
 
         return response()->json([
