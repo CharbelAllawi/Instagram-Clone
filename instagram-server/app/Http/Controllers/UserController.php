@@ -28,4 +28,16 @@ class UserController extends Controller
             return response()->json(['message' => 'User followed successfully']);
         }
     }
+
+    public function searchByName(Request $request)
+    {
+        $query = $request->input('name');
+
+        $users = User::where('name', 'LIKE', "%$query%")->get();
+
+        return response()->json([
+            'status' => 'success',
+            'users' => $users,
+        ]);
+    }
 }
